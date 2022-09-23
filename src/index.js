@@ -25,19 +25,29 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
   spinner: document.querySelector('.spinner-border'),
 };
-let page = 1;
+
+
+
+
+function renderCardImage(arr) {
+  const markup = arr.map(item => templateFunction(item)).join('');
+  gallery.insertAdjacentHTML('beforeend', markup);
+}
+
+let lightbox = new SimpleLightbox('.photo-card a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
+let currentPage = 1;
 let searchQuery = '';
-let lightbox;
-
 refs.searchInput.addEventListener('submit', onSearch);
-
 // const loadMoreBtn = new LoadMoreBtn({
 //   selector: '[data-action="load-more"]',
 //   hidden: true,
 // });
 // const newsApiService = new NewsApiService();
-
-
 
 // loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
@@ -46,14 +56,11 @@ function onSearch(e) {
 
   // newsApiService.query = e.currentTarget.elements.query.value;
  searchQuery = e.currentTarget.elements.query.value;
- 
+ refs.gallery.innerHTML = '';
+ currentPage = 1;
  if (searchQuery === '') {
   return Notiflix.Notify.failure("Sorry, you didn't write anything");
 }
-
-//   if (newsApiService.query === '') {
-//     return alert('Введи что-то нормальное');
-//   }
 
 //   loadMoreBtn.show();
 //   newsApiService.resetPage();
