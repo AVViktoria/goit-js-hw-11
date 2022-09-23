@@ -1,4 +1,3 @@
-
 async function onClickLoadMoreBtn() {
   currentPage += 1;
   const response = await fetchImages(searchQuery, currentPage);
@@ -7,8 +6,8 @@ async function onClickLoadMoreBtn() {
   currentHits += response.hits.length;
 
   if (currentHits === response.totalHits) {
-    loadMoreBtn.classList.add('is-hidden');
-    endCollectionText.classList.remove('is-hidden');
+    refs.loadMoreBtn.classList.add('is-hidden');
+    refs.endCollectionText.classList.remove('is-hidden');
   }}
  
   export { onClickLoadMoreBtn };

@@ -9,11 +9,8 @@ import { Notify } from 'notiflix';
 //*   IMPORTS  components  files
 import './css/common.css';
 import cardTemplate from './templates/oneCardTemplate.hbs';
-// document.body.innerHTML = templateFunction();
 import fetchImages from './js/fetchApi';
-
-// import NewsApiService from './js/news-service';
-import { onClickLoadMoreBtn } from './js/load-more-btn';
+// import { onClickLoadMoreBtn } from './js/load-more-btn';
 
 //*     CONSTANTS
 const refs = {
@@ -42,7 +39,7 @@ let searchQuery = '';
 let currentHits = 0;
 
 refs.searchForm.addEventListener('submit', onSearch);
-refs.loadMoreBtn.addEventListener('click', onClickLoadMoreBtn);
+
 
 // const loadMoreBtn = new LoadMoreBtn({
 //   selector: '[data-action="load-more"]',
@@ -98,6 +95,19 @@ async function onSearch(e) {
   } catch (error) {
     console.log(error);
   }
+
+  refs.loadMoreBtn.addEventListener('click', onClickLoadMoreBtn);
+  async function onClickLoadMoreBtn() {
+    currentPage += 1;
+    const response = await fetchImages(searchQuery, currentPage);
+    renderCardImage(response.hits);
+    lightbox.refresh();
+    currentHits += response.hits.length;
+  
+    if (currentHits === response.totalHits) {
+      refs.loadMoreBtn.classList.add('is-hidden');
+      refs.endCollectionText.classList.remove('is-hidden');
+    }}
 }
   //   loadMoreBtn.show();
   //   newsApiService.resetPage();
