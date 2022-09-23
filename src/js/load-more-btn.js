@@ -10,7 +10,7 @@ async function onClickLoadMoreBtn() {
     loadMoreBtn.classList.add('is-hidden');
     endCollectionText.classList.remove('is-hidden');
   }}
-
+ 
   export { onClickLoadMoreBtn };
 
 // export default class LoadMoreBtn {
