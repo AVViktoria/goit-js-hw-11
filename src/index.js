@@ -54,11 +54,11 @@ refs.loadMoreBtn.addEventListener('click', onClickLoadMoreBtn);
 
 async function onSearch(e) {
   e.preventDefault();
+  searchQuery = e.currentTarget.searchQuery.value;
+  currentPage = 1;
 
   // newsApiService.query = e.currentTarget.elements.query.value;
-  searchQuery = e.currentTarget.elements.query.value;
-  // refs.gallery.innerHTML = '';
-  currentPage = 1;
+ 
   if (searchQuery === '') {
     return Notiflix.Notify.failure("Sorry, you didn't write anything");
   }
