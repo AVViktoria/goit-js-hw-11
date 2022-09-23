@@ -1,6 +1,6 @@
-// const API_KEY = '30114983-364137b9a9ec33f130a531f95';
-// const BASE_URL = 'https://pixabay.com/api/';
-// const options = {
+
+
+// 
 //   headers: {
 //     Authorization: API_KEY,
 //   },

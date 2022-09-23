@@ -9,9 +9,9 @@ import { Notify } from 'notiflix';
 import axios from 'axios';
 
 //*   IMPORTS  components  files
-// import templateFunction from './templates/oneCardTemplate.hbs';
+import templateFunction from './templates/oneCardTemplate.hbs';
 // document.body.innerHTML = templateFunction();
-
+import { getImgs } from './js/fetchApi';
 import './css/common.css';
 // import NewsApiService from './js/news-service';
 // import LoadMoreBtn from './js/load-more-btn';
@@ -25,14 +25,20 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
   spinner: document.querySelector('.spinner-border'),
 };
+let page = 1;
+let searchQuery = '';
+let lightbox;
+
+refs.searchInput.addEventListener('submit', onSearch);
 
 // const loadMoreBtn = new LoadMoreBtn({
 //   selector: '[data-action="load-more"]',
 //   hidden: true,
 // });
 // const newsApiService = new NewsApiService();
-let searchQuery = '';
-refs.searchInput.addEventListener('submit', onSearch);
+
+
+
 // loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
 function onSearch(e) {
@@ -40,20 +46,9 @@ function onSearch(e) {
 
   // newsApiService.query = e.currentTarget.elements.query.value;
  searchQuery = e.currentTarget.elements.query.value;
-
-  const API_KEY = '30114983-364137b9a9ec33f130a531f95';
-  const BASE_URL = 'https://pixabay.com/api/';
-  const options = {
-    headers: {
-      Authorization: API_KEY,
-    },
-  };
-  const url = `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safeSearch=true&per_page=40&page=1`;
-  // const url = `https://pixabay.com/api/?key=29882224-53e6cb6eb5c61ad27904c20c4&q=cat&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=1`;
-
-  fetch(url, options)
-    .then(r => r.json())
-    .then(console.log);
+ 
+ if (searchQuery === '') {
+  return Notiflix.Notify.failure("Sorry, you didn't write anything");
 }
 
 //   if (newsApiService.query === '') {
@@ -80,4 +75,4 @@ function onSearch(e) {
 
 // function clearArticlesContainer() {
 //   refs.articlesContainer.innerHTML = '';
-// }
+}
