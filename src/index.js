@@ -31,7 +31,7 @@ const refs = {
 //   hidden: true,
 // });
 // const newsApiService = new NewsApiService();
-
+let searchQuery = '';
 refs.searchInput.addEventListener('submit', onSearch);
 // loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
@@ -39,7 +39,7 @@ function onSearch(e) {
   e.preventDefault();
 
   // newsApiService.query = e.currentTarget.elements.query.value;
-  // const searchQuery = e.currentTarget.elements.query.value;
+ searchQuery = e.currentTarget.elements.query.value;
 
   const API_KEY = '30114983-364137b9a9ec33f130a531f95';
   const BASE_URL = 'https://pixabay.com/api/';
@@ -48,7 +48,7 @@ function onSearch(e) {
       Authorization: API_KEY,
     },
   };
-  const url = `${BASE_URL}?key=${API_KEY}&q=cat&image_type=photo&orientation=horizontal&safeSearch=true&per_page=40&page=1`;
+  const url = `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safeSearch=true&per_page=40&page=1`;
   // const url = `https://pixabay.com/api/?key=29882224-53e6cb6eb5c61ad27904c20c4&q=cat&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=1`;
 
   fetch(url, options)
