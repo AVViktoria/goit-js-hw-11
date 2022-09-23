@@ -10,12 +10,12 @@ import axios from 'axios';
 
 
 //*   IMPORTS  components  files
-import templateFunction from './templates/oneCardTemplate.hbs';
-document.body.innerHTML = templateFunction();
+// import templateFunction from './templates/oneCardTemplate.hbs';
+// document.body.innerHTML = templateFunction();
 
 import "./css/common.css";
-import NewsApiService from './js/news-service';
-import LoadMoreBtn from './js/load-more-btn';
+// import NewsApiService from './js/news-service';
+// import LoadMoreBtn from './js/load-more-btn';
 
 //*     CONSTANTS
 // const refs = {
