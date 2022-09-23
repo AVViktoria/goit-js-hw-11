@@ -13,8 +13,8 @@ import axios from 'axios';
 // document.body.innerHTML = templateFunction();
 
 import './css/common.css';
-import NewsApiService from './js/news-service';
-import LoadMoreBtn from './js/load-more-btn';
+// import NewsApiService from './js/news-service';
+// import LoadMoreBtn from './js/load-more-btn';
 
 //*     CONSTANTS
 const refs = {
@@ -26,42 +26,58 @@ const refs = {
   spinner: document.querySelector('.spinner-border'),
 };
 
-const loadMoreBtn = new LoadMoreBtn({
-  selector: '[data-action="load-more"]',
-  hidden: true,
-});
-const newsApiService = new NewsApiService();
+// const loadMoreBtn = new LoadMoreBtn({
+//   selector: '[data-action="load-more"]',
+//   hidden: true,
+// });
+// const newsApiService = new NewsApiService();
 
-refs.searchForm.addEventListener('submit', onSearch);
-loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
+refs.searchInput.addEventListener('submit', onSearch);
+// loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
 function onSearch(e) {
   e.preventDefault();
 
-  newsApiService.query = e.currentTarget.elements.query.value;
+  // newsApiService.query = e.currentTarget.elements.query.value;
+  // const searchQuery = e.currentTarget.elements.query.value;
 
-  if (newsApiService.query === '') {
-    return alert('Введи что-то нормальное');
-  }
+  const API_KEY = '30114983-364137b9a9ec33f130a531f95';
+  const BASE_URL = 'https://pixabay.com/api/';
+  const options = {
+    headers: {
+      Authorization: API_KEY,
+    },
+  };
+  const url = `${BASE_URL}?key=${API_KEY}&q=cat&image_type=photo&orientation=horizontal&safeSearch=true&per_page=40&page=1`;
+  // const url = `https://pixabay.com/api/?key=29882224-53e6cb6eb5c61ad27904c20c4&q=cat&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=1`;
 
-  loadMoreBtn.show();
-  newsApiService.resetPage();
-  clearArticlesContainer();
-  fetchArticles();
+  fetch(url, options)
+    .then(r => r.json())
+    .then(console.log);
 }
 
-function fetchArticles() {
-  loadMoreBtn.disable();
-  newsApiService.fetchArticles().then(articles => {
-    appendArticlesMarkup(articles);
-    loadMoreBtn.enable();
-  });
-}
+//   if (newsApiService.query === '') {
+//     return alert('Введи что-то нормальное');
+//   }
 
-function appendArticlesMarkup(articles) {
-  refs.articlesContainer.insertAdjacentHTML('beforeend', articlesTpl(articles));
-}
+//   loadMoreBtn.show();
+//   newsApiService.resetPage();
+//   clearArticlesContainer();
+//   fetchArticles();
+// }
 
-function clearArticlesContainer() {
-  refs.articlesContainer.innerHTML = '';
-}
+// function fetchArticles() {
+//   loadMoreBtn.disable();
+//   newsApiService.fetchArticles().then(articles => {
+//     appendArticlesMarkup(articles);
+//     loadMoreBtn.enable();
+//   });
+// }
+
+// function appendArticlesMarkup(articles) {
+//   refs.articlesContainer.insertAdjacentHTML('beforeend', articlesTpl(articles));
+// }
+
+// function clearArticlesContainer() {
+//   refs.articlesContainer.innerHTML = '';
+// }
