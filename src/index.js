@@ -14,7 +14,7 @@ import templateFunction from './templates/oneCardTemplate.hbs';
 import { getImgs } from './js/fetchApi';
 import './css/common.css';
 // import NewsApiService from './js/news-service';
-// import LoadMoreBtn from './js/load-more-btn';
+import { onClickLoadMoreBtn } from './js/load-more-btn';
 
 //*     CONSTANTS
 const refs = {
@@ -42,14 +42,18 @@ let lightbox = new SimpleLightbox('.photo-card a', {
 
 let currentPage = 1;
 let searchQuery = '';
+let currentHits = 0;
+
 refs.searchInput.addEventListener('submit', onSearch);
-// const loadMoreBtn = new LoadMoreBtn({
-//   selector: '[data-action="load-more"]',
-//   hidden: true,
-// });
+loadMoreBtn.refs.button.addEventListener('click', onClickLoadMoreBtn);
+
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
 // const newsApiService = new NewsApiService();
 
-// loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
+
 
 function onSearch(e) {
   e.preventDefault();
