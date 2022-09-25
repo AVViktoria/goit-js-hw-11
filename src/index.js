@@ -10,7 +10,6 @@ import { Notify } from 'notiflix';
 import './css/common.css';
 import cardTemplate from './templates/oneCardTemplate.hbs';
 import fetchImages from './js/fetchApi';
-// import { onClickLoadMoreBtn } from './js/load-more-btn';
 
 //*     CONSTANTS
 const refs = {
@@ -19,9 +18,7 @@ const refs = {
   submitBtn: document.querySelector('[type="submit"]'),
   gallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more'),
-  // spinner: document.querySelector('.spinner-border'),
 };
-
 
 function renderCardImage(arr) {
   const markup = arr.map(item => cardTemplate(item)).join('');
@@ -40,22 +37,11 @@ let currentHits = 0;
 
 refs.searchForm.addEventListener('submit', onSearch);
 
-
-// const loadMoreBtn = new LoadMoreBtn({
-//   selector: '[data-action="load-more"]',
-//   hidden: true,
-// });
-// const newsApiService = new NewsApiService();
-
-
-
 async function onSearch(e) {
   e.preventDefault();
   searchQuery = e.currentTarget.searchQuery.value;
   currentPage = 1;
 
-  // newsApiService.query = e.currentTarget.elements.query.value;
- 
   if (searchQuery === '') {
     return Notiflix.Notify.failure("Sorry, you didn't write anything");
   }
@@ -88,7 +74,9 @@ async function onSearch(e) {
 
     if (response.totalHits === 0) {
       refs.gallery.innerHTML = '';
-      Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
       refs.loadMoreBtn.classList.add('is-hidden');
       refs.endCollectionText.classList.add('is-hidden');
     }
@@ -103,30 +91,10 @@ async function onSearch(e) {
     renderCardImage(response.hits);
     lightbox.refresh();
     currentHits += response.hits.length;
-  
+
     if (currentHits === response.totalHits) {
       refs.loadMoreBtn.classList.add('is-hidden');
       refs.endCollectionText.classList.remove('is-hidden');
-    }}
+    }
+  }
 }
-  //   loadMoreBtn.show();
-  //   newsApiService.resetPage();
-  //   clearArticlesContainer();
-  //   fetchArticles();
-  // }
-
-  // function fetchArticles() {
-  //   loadMoreBtn.disable();
-  //   newsApiService.fetchArticles().then(articles => {
-  //     appendArticlesMarkup(articles);
-  //     loadMoreBtn.enable();
-  //   });
-  // }
-
-  // function appendArticlesMarkup(articles) {
-  //   refs.articlesContainer.insertAdjacentHTML('beforeend', articlesTpl(articles));
-  // }
-
-  // function clearArticlesContainer() {
-  //   refs.articlesContainer.innerHTML = '';
-
